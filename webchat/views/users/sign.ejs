@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<% include ../header %>
+
+	<script>
+		$(document).ready(function() {
+			$('#signOK').click(function() {
+				$.ajax({
+					url : "/users/sign",
+					type : "POST",
+					cache : false,
+					autoSubmit : true,
+					data : { id: $('#id').val(),
+						name: $('#name').val()},
+						password: $('#pw').val()},
+					success : function(data) {
+						console.log(data.id);
+					}
+				})
+			})
+		})
+	
+	</script>
+
+	<body>
+		<div class="sign" style="margin-right:38%; margin-left:38%; margin-top:5%;">
+			<!-- 계정추가 -->
+			<div class="ui right labeled left icon input" style="width:100%;">
+				<i class="tags icon"></i>
+				<input type="text" placeholder="Email" id="id">
+				<a class="ui tag label">
+				Email	
+				</a>
+			</div>
+			<div class="ui right labeled left icon input" style="width:100%;">
+				<i class="tags icon"></i>
+				<input type="name" placeholder="Name" id="name">
+				<a class="ui tag label">
+				닉네임	
+				</a>
+			</div>
+			<div class="ui right labeled left icon input" style="width:100%;">
+				<i class="tags icon"></i>
+				<input type="password" placeholder="Password" id="pw">
+				<a class="ui tag label">
+				패스워드	
+				</a>
+			</div>
+			<p>
+			<button class="black ui button" style="width:100%;" id="signOK">가입하기</button>
+		<!-- 가입 끝 -->
+		</div>	
+	</body>
+</html>
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<% include ../header %>
+	
+	<script>
+		$(document).ready(function() {
+			
+			$('#loginOk').click(function() {
+				$.ajax({
+					url : "/users/login",
+					type : "POST",
+					cache : false,
+					autoSubmit : true,
+					data : { id : $('#userid').val(),
+						password : $('#password').val()},
+					beforeSend : function() {
+						if (!$('#userid').val() || !$('#password').val()) {
+							$('#alert2').show();
+							$('#alert1').hide();
+							return false;}
+						else { return true; }
+					},
+					success : function(data) {
+						console.log(data)
+					}
+				})
+			})
+
+			$('#password').keypress(function(event){
+				if( event.which == 13) {
+					$('#loginOk').click();
+					return false;
+				}
+			});
+		})
+	</script>
+
+<style>
+.frame {
+    text-align: right;
+	border: 1px;
+}
+</style>
+
+	<body>
+		<% include ../head %>
+		<div class="ui grid" style="margin-top:10%; margin-left:35%; margin-right:30%;">
+			<div class="ten wide column">
+			<div class="login">
+			<div class="ui placeholder segment">
+				<div class="column">
+					<div class="field">
+						<p><font color=black size=4>Welcome to Work People </font></p>
+						<label> Username </label>
+						<div class="ui left icon input">
+							<input type="text" placeholder="Username" id="userid">
+							<i class="user icon"></i>
+						</div>
+					</div>
+					<div class="field">
+						<label>Password</label>
+						<div class="ui left icon input">
+							<input type="password" placeholder="Password" id="password">
+							<i class="lock icon"></i>
+						</div>
+				<br>
+				<div class="error message" style="display:none; color:red" id="alert1"> 아이디나 패스워드가 잘못입력됐습니다. </div>
+				<div class="error message" style="display:none; color:red" id="alert2"> 값을 모두 입력해주세요 </div>
+				<br>
+					</div>
+				</div>
+				<p><button class="ui black submit button" style="width:100%;" id="loginOk">Login</button></p>
+	            <p><button class="ui black submit button" type="button" onclick="location.href='/users/sign'"> Sign Up </button></p>
+				<div style="text-align: center">
+				<a href="/users/idloss">ID Lost</a>
+				</div>
+				<div style="text-align: center">
+				<a href="/users/pwloss">PW Lost</a>
+				</div>
+				</div>
+			</div>
+			</div>
+			<div class="six wide column">
+        		<div class="frame">
+        		<a href="/kakao"><img src="/kakao.png" class="right" width="200" height="50"></a>
+        		</div>
+        		<div class="frame">
+        		<a href="/facebook"><img src="/facebook.png" class="right" width="200" height="50"></a>
+        		</div>
+        		<div class="frame">
+        		<a href="/gmail"><img src="/gmail.png" class="right" width="200" height="50"></a>
+        		</div>
+        		<div class="frame">
+        		<a href="/naver"><img src="/naver.png" class="right" width="200" height="50"></a>
+        		</div>
+        		<div class="frame">
+        		<a href="/insta"><img src="/instagram.png" class="right" width="200" height="50"></a>
+        		</div>
+			</div>
+			</div>
+		</div>
+	</body>
+</html>
+

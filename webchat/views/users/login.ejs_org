@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<% include ../header %>
+	
+	<script>
+		$(document).ready(function() {
+			
+			$('#loginOk').click(function() {
+				$.ajax({
+					url : "/users/login",
+					type : "POST",
+					cache : false,
+					autoSubmit : true,
+					data : { id : $('#userid').val(),
+						password : $('#password').val()},
+					beforeSend : function() {
+						if (!$('#userid').val() || !$('#password').val()) {
+							$('#alert2').show();
+							$('#alert1').hide();
+							return false;}
+						else { return true; }
+					},
+					success : function(data) {
+						console.log(data)
+					}
+				})
+			})
+
+			$('#password').keypress(function(event){
+				if( event.which == 13) {
+					$('#loginOk').click();
+					return false;
+				}
+			});
+		})
+	</script>
+
+	<body>
+		<% include ../head %>
+		<div class="login" style="margin-right:38%; margin-left:38%; margin-top:5%;">
+		<div class="ui placeholder segment">
+			<div class="column">
+				<div class="field">
+					<label> Username </label>
+					<div class="ui left icon input">
+						<input type="text" placeholder="Username" id="userid">
+						<i class="user icon"></i>
+					</div>
+				</div>
+				<div class="field">
+					<label>Password</label>
+					<div class="ui left icon input">
+						<input type="password" placeholder="Password" id="password">
+						<i class="lock icon"></i>
+					</div>
+			<br>
+			<div class="error message" style="display:none; color:red" id="alert1"> 아이디나 패스워드가 잘못입력됐습니다. </div>
+			<div class="error message" style="display:none; color:red" id="alert2"> 값을 모두 입력해주세요 </div>
+			<br>
+				</div>
+			</div>
+			<button class="ui blue submit button" style="width:100%;" id="loginOk">Login</button>
+		</div>
+		</div>
+	</body>
+</html>
+

@@ -1,4 +1,8 @@
 let models = require("./models/index.js");
+const User = require('./models/User');
+const Room = require('./models/Room');
+const Message = require('./models/Message');
+const passport = require('passport');
 
 var createError = require('http-errors');
 var express = require('express');
@@ -15,6 +19,13 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(require('express-session')({
+	secret: 'kakaotest',
+	resave: false,
+	saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,6 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use(express.static("image"));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
