@@ -4,15 +4,16 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#signOK').click(function() {
+			$('#signIn').click(function() {
 				$.ajax({
 					url : "/users/sign",
 					type : "POST",
 					cache : false,
 					autoSubmit : true,
 					data : { id: $('#id').val(),
-						name: $('#name').val()},
-						password: $('#pw').val()},
+						name: $('#name').val(),
+						password: $('#pw').val(),
+						passwordchk: $('#pwchk').val()},
 					success : function(data) {
 						console.log(data.id);
 					}
@@ -46,8 +47,19 @@
 				패스워드	
 				</a>
 			</div>
-			<p>
-			<button class="black ui button" style="width:100%;" id="signOK">가입하기</button>
+			<div class="ui right labeled left icon input" style="width:100%;">
+				<i class="tags icon"></i>
+				<input type="password" placeholder="Password Check" id="pwchk">
+				<a class="ui tag label">
+				패스워드 확인	
+				</a>
+			</div>
+			<div class="ui right labeled left icon input" style="width:100%;">
+				<p>
+				<button class="ui black button" type="button" onclick="location.href='/users/wook'">Email Auth Start</button>
+			</div>
+				</p>
+			<button class="black ui button" style="width:100%;" id="signIn">가입하기</button>
 		<!-- 가입 끝 -->
 		</div>	
 	</body>

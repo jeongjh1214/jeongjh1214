@@ -4,16 +4,17 @@ exports.createUser = (req,res,next)=>{
 	const UserModel = require('../../models/User');
 	const bcrypt = require('bcrypt');
 	const id = req.body.id;
+	const name = req.body.name;
 	const password = req.body.password;
 
 	console.log(req.body);
 	if(!id){
-		const error = new Error("Bad Request");
+		const error = new Error("Bad Request ID");
 		error.status = 400;
 		return next(error);
 
 	}else if(!password){
-		const error = new Error("Bad Request");
+		const error = new Error("Bad Request Password");
 		error.status = 400;
 		return next(error);
 	}
@@ -23,6 +24,7 @@ exports.createUser = (req,res,next)=>{
 	const createUser = (strictPassword)=>{
 		const User = new UserModel({
 			id:id,
+			name:name,
 			password:strictPassword
 		});
 		req.CreatedUser = User;

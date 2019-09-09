@@ -11,6 +11,7 @@ const passport = require("passport");
 const secretObj = require("../config/loginapi");
 const KakaoStrategy = require("passport-kakao").Strategy;
 const bcrypt = require("bcrypt");
+const nodemailer = require('nodemailer');
 
 
 function loginByThirdparty(info, done) {
@@ -97,5 +98,36 @@ router.get('/kakao/callback',
 		failureRedirect: '/login'
 	})
 );
+
+// email 인증
+router.post("/emailauth", function(req, res, next){
+  let email = req.body.email;
+
+  let transporter = nodemailer.createTransport({
+	service: 'Gmail',
+	host: 'smtp.google.com',
+    auth: {
+      user: 'deouk88@gmail.com',  // gmail 계정 아이디를 입력
+      pass: 'rnjseodnr0)'          // gmail 계정의 비밀번호를 입력
+    }
+  });
+
+let mailOptions = {
+  from: 'deouk88@gmail.com',    // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
+  to: email,                     // 수신 메일 주소
+  subject: 'Please Email Auth',   // 제목
+  html: '<p>아래의 링크를 클릭해주세요 !</p>' + "<a href='http://121.254.171.198:3000/emailauth/?email="+ email +"&authcode=abcdefg'>Auth Start</a>"
+};
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    }
+    else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
+})
 
 module.exports = router;
