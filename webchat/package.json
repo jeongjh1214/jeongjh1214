@@ -23,6 +23,6 @@
     "passport-facebook": "^3.0.0",
     "passport-kakao": "0.0.5",
     "passport-naver": "^1.0.6",
-    "semantic-ui": "^2.4.2"
+    "semantic-ui": "^2.5.0"
   }
 }
